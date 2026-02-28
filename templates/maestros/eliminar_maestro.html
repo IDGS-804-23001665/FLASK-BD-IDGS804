@@ -1,0 +1,45 @@
+{% extends "layout.html" %}
+{% block container %}
+{% import "_macros.html" as macros %}
+
+<form method='POST'
+    action="{{ url_for('maestros.eliminar_maestro', id=form.matricula.data) }}"
+    class="max-w-md mx-auto">
+    <input type="hidden" name="csrf_token" value="{{ csrf_token() }}" />
+    <div class="grid md:grid-cols-2 md:gap-6">
+        <div class="relative z-0 w-full mb-5 group">
+            {{ macros.camposNuevos(form.nombre, class=
+            "block py-2.5 px-0 w-full text-sm text-heading bg-transparent border-0 border-b-2 border-default-medium appearance-none focus:outline-none focus:ring-0 focus:border-brand peer",
+            disabled=True )}}
+        </div>
+        <div class="relative z-0 w-full mb-5 group">
+            {{ macros.camposNuevos(form.apellidos,
+            class="block py-2.5 px-0 w-full text-sm text-heading bg-transparent border-0 border-b-2 border-default-medium appearance-none focus:outline-none focus:ring-0 focus:border-brand peer",
+            disabled=True )}}
+        </div>
+    </div>
+    <div class="relative z-0 w-full mb-5 group">
+        {{ macros.camposNuevos(form.especialidad,
+        class="block py-2.5 px-0 w-full text-sm text-heading bg-transparent border-0 border-b-2 border-default-medium appearance-none focus:outline-none focus:ring-0 focus:border-brand peer",
+        disabled=True) }}
+    </div>
+    <div class="flex gap-4 mt-6">
+        <button type="submit"
+            class="flex items-center gap-2 bg-red-500 text-white px-4 py-2 rounded hover:bg-red-600 focus:outline-none focus:ring-4 focus:ring-red-300 font-medium text-sm">
+            <svg class="w-5 h-5 text-white" aria-hidden="true"
+                xmlns="http://www.w3.org/2000/svg" width="24" height="24"
+                fill="none" viewBox="0 0 24 24">
+                <path stroke="currentColor" stroke-linecap="round"
+                    stroke-linejoin="round" stroke-width="2"
+                    d="M5 7h14m-9 3v8m4-8v8M10 3h4a1 1 0 0 1 1 1v3H9V4a1 1 0 0 1 1-1ZM6 7h12v13a1 1 0 0 1-1 1H7a1 1 0 0 1-1-1V7Z" />
+            </svg>
+            Eliminar
+        </button>
+
+        <a href="{{ url_for('maestros.index') }}"
+            class="flex items-center gap-2 bg-gray-500 text-white px-4 py-2 rounded hover:bg-gray-600 focus:outline-none focus:ring-4 focus:ring-gray-300 font-medium text-sm text-center">
+            Salir
+        </a>
+    </div>
+</form>
+{% endblock %}

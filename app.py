@@ -2,13 +2,15 @@ from flask import Flask, render_template, request, redirect, url_for, flash, g
 from flask_wtf.csrf import CSRFProtect
 from config import DevelopmentConfig
 import forms
-from models import db, Alumnos
+from models import db, Alumnos, Curso, Inscripcion
 from flask_migrate import Migrate
+from cursos.routes import cursos
 from maestros.routes import maestros
 
 app = Flask(__name__)
 app.config.from_object(DevelopmentConfig)
-app.register_blueprint(maestros) #para cada modulo/tabla
+app.register_blueprint(maestros)
+app.register_blueprint(cursos)
 db.init_app(app)
 migrate=Migrate(app,db)
 csrf=CSRFProtect()
@@ -103,6 +105,11 @@ def eliminar():
        
  
     return render_template("eliminar.html", form=create_form)
+
+@app.route("/cursos", methods=['GET'])
+def listado_cursos():
+    lista_cursos = Curso.query.all()
+    return render_template("cursos.html", cursos=lista_cursos)
 
 if __name__ == '__main__':
     csrf.init_app(app)

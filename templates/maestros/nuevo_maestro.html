@@ -1,0 +1,41 @@
+{% extends "layout.html" %}
+{% block container %}
+{% import "_macros.html" as macros %}
+
+<form method='POST' action="{{ url_for('maestros.nuevo_maestro') }}"
+    class="max-w-md mx-auto">
+    <input type="hidden" name="csrf_token" value="{{ csrf_token() }}" />
+    <div class="grid md:grid-cols-2 md:gap-6">
+        <div class="relative z-0 w-full mb-5 group">
+            {{ macros.camposNuevos(form.nombre, class=
+            "block py-2.5 px-0 w-full text-sm text-heading bg-transparent border-0 border-b-2 border-default-medium appearance-none focus:outline-none focus:ring-0 focus:border-brand peer"
+            )}}
+        </div>
+        <div class="relative z-0 w-full mb-5 group">
+            {{ macros.camposNuevos(form.apellidos,
+            class="block py-2.5 px-0 w-full text-sm text-heading bg-transparent border-0 border-b-2 border-default-medium appearance-none focus:outline-none focus:ring-0 focus:border-brand peer"
+            )}}
+        </div>
+    </div>
+    <div class="relative z-0 w-full mb-5 group">
+        {{ macros.camposNuevos(form.especialidad,
+        class="block py-2.5 px-0 w-full text-sm text-heading bg-transparent border-0 border-b-2 border-default-medium appearance-none focus:outline-none focus:ring-0 focus:border-brand peer")
+        }}
+    </div>
+    <div class="relative z-0 w-full mb-5 group">
+        {{ macros.camposNuevos(form.email,
+        class="block py-2.5 px-0 w-full text-sm text-heading bg-transparent border-0 border-b-2 border-default-medium appearance-none focus:outline-none focus:ring-0 focus:border-brand peer"
+        )}}
+    </div>
+    <div class="flex gap-4 mt-6">
+        <button type="submit"
+            class="flex items-center gap-2 bg-green-500 text-white px-4 py-2 rounded hover:bg-green-600 focus:outline-none focus:ring-4 focus:ring-green-300 font-medium text-sm">
+            Crear
+        </button>
+        <a href="{{ url_for('maestros.index') }}"
+            class="flex items-center gap-2 bg-gray-500 text-white px-4 py-2 rounded hover:bg-gray-600 focus:outline-none focus:ring-4 focus:ring-gray-300 font-medium text-sm text-center">
+            Salir
+        </a>
+    </div>
+</form>
+{% endblock %}
