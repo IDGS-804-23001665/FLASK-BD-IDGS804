@@ -11,28 +11,27 @@
                 stroke-width="2"
                 d="M11 5H6a2 2 0 00-2 2v11a2 2 0 002 2h11a2 2 0 002-2v-5m-1.414-9.414a2 2 0 112.828 2.828L11.828 15H9v-2.828l8.586-8.586z" />
         </svg>
-        Modificar Maestro
+        Modificar Alumno
     </h2>
 
     <form method="POST"
-        action="{{ url_for('maestros.modificar_maestro', id=form.matricula.data) }}"
+        action="{{ url_for('alumnos.modificar_alumno', id=form.id.data) }}"
         novalidate>
         <input type="hidden" name="csrf_token" value="{{ csrf_token() }}" />
-        {{ macros.camposNuevos(form.matricula, class="input-field",
-        readonly=True) }}
+        {{ macros.camposNuevos(form.id, class="input-field", readonly=True) }}
         <div class="grid grid-cols-2 gap-4">
             {{ macros.camposNuevos(form.nombre, class="input-field") }}
             {{ macros.camposNuevos(form.apellidos, class="input-field") }}
         </div>
-        {{ macros.camposNuevos(form.especialidad, class="input-field") }}
         {{ macros.camposNuevos(form.email, class="input-field") }}
+        {{ macros.camposNuevos(form.telefono, class="input-field") }}
 
         <div class="flex gap-3 mt-6">
             <button type="submit"
                 class="bg-amber-500 hover:bg-amber-600 text-white text-sm font-medium px-5 py-2 rounded-lg transition-colors">
                 Actualizar
             </button>
-            <a href="{{ url_for('maestros.index') }}"
+            <a href="{{ url_for('alumnos.index') }}"
                 class="bg-slate-100 hover:bg-slate-200 text-slate-700 text-sm font-medium px-5 py-2 rounded-lg transition-colors">
                 Cancelar
             </a>

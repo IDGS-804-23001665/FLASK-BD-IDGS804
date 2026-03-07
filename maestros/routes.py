@@ -1,14 +1,9 @@
 from . import maestros
 from flask import redirect, request, render_template, url_for
-from maestros.routes import maestros, maestros
 from models import db
 from models import Alumnos, Maestros
 import forms
-from flask_migrate import Migrate
-from flask import g
-from config import DevelopmentConfig
 from flask import flash
-from flask_wtf.csrf import CSRFProtect
 
 @maestros.route("/maestros", methods=['GET', 'POST'])
 def index():
@@ -23,7 +18,7 @@ def perfil(nombre):
 @maestros.route("/nuevo_maestro", methods=['GET', 'POST'])
 def nuevo_maestro():
     create_form = forms.MaestroForm(request.form)
-    if request.method == 'POST':
+    if request.method == 'POST' and create_form.validate():
         maes = Maestros(
             nombre=create_form.nombre.data,
             apellidos=create_form.apellidos.data,
@@ -49,7 +44,7 @@ def modificar_maestro():
         create_form.especialidad.data = maes1.especialidad
         create_form.email.data = maes1.email
  
-    if request.method == 'POST':
+    if request.method == 'POST' and create_form.validate():
         id = request.args.get('id')
         maes1 = db.session.query(Maestros).filter(Maestros.matricula == id).first()
         maes1.nombre = create_form.nombre.data

@@ -2,34 +2,23 @@
 {% block container %}
 
 <div
-    class="relative bg-neutral-primary-soft max-w-xs w-full p-6 border border-default rounded-base shadow-xs mx-auto mt-10">
-    <div class="flex flex-col items-center">
-        <img
-            class="w-28 h-28 mb-4 rounded-full shadow-md border-4 border-gray-100 dark:border-gray-700"
-            src="https://ui-avatars.com/api/?name={{ maes.nombre }}+{{ maes.apellidos }}&background=10B981&color=fff&size=128"
-            alt="Foto de perfil" />
-        <h5 class="mb-0.5 text-xl font-semibold tracking-tight text-heading">
-            {{ maes.nombre }} {{ maes.apellidos }}
-        </h5>
-        <span class="text-sm text-body font-bold mt-2">Especialidad:</span>
-        <span class="text-sm text-body">{{ maes.especialidad }}</span>
+    class="bg-white rounded-xl shadow-sm border border-slate-200 max-w-sm mx-auto p-8 text-center">
+    <img class="w-24 h-24 rounded-full mx-auto mb-4 border-4 border-indigo-100"
+        src="https://ui-avatars.com/api/?name={{ maes.nombre }}+{{ maes.apellidos }}&background=6366f1&color=fff&size=128"
+        alt="Avatar" />
+    <h3 class="text-xl font-bold text-slate-800">{{ maes.nombre }} {{
+        maes.apellidos }}</h3>
+    <span
+        class="inline-block bg-indigo-100 text-indigo-700 text-xs font-semibold px-3 py-1 rounded-full mt-2">
+        {{ maes.especialidad }}
+    </span>
+    <p class="text-sm text-slate-500 mt-3">{{ maes.email }}</p>
 
-        <span class="text-sm text-body font-bold mt-2">Correo:</span>
-        <span class="text-sm text-body">{{ maes.email }}</span>
-
-        <div class="flex mt-4 md:mt-6 gap-4">
-            <a href="{{ url_for('maestros.index') }}"
-                class="flex items-center gap-2 bg-gray-500 text-white px-4 py-2 rounded hover:bg-gray-600 focus:outline-none focus:ring-4 focus:ring-gray-300 font-medium text-sm text-center">
-                <svg class="w-5 h-5 text-white" aria-hidden="true"
-                    xmlns="http://www.w3.org/2000/svg" width="24" height="24"
-                    fill="none" viewBox="0 0 24 24">
-                    <path stroke="currentColor" stroke-linecap="round"
-                        stroke-linejoin="round" stroke-width="2"
-                        d="M5 12h14M5 12l4-4m-4 4 4 4" />
-                </svg>
-                Salir
-            </a>
-        </div>
+    <div class="mt-6">
+        <a href="{{ url_for('maestros.index') }}"
+            class="bg-indigo-600 hover:bg-indigo-700 text-white text-sm font-medium px-5 py-2 rounded-lg transition-colors">
+            Regresar
+        </a>
     </div>
 </div>
 {% endblock %}

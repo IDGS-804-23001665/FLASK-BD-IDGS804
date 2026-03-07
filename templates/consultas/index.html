@@ -1,0 +1,149 @@
+{% extends "layout.html" %}
+{% block container %}
+
+<div class="max-w-4xl mx-auto">
+
+    <h2 class="text-2xl font-bold text-heading mb-6">Consultas</h2>
+
+    <!-- Tabs -->
+    <div class="mb-6 border-b border-default">
+        <ul class="flex flex-wrap -mb-px text-sm font-medium text-center">
+            <li class="me-2">
+                <button id="tab-curso-btn"
+                    class="inline-block p-4 border-b-2 border-brand text-brand rounded-t-lg"
+                    onclick="mostrarTab('curso')" type="button">
+                    Buscar por Curso
+                </button>
+            </li>
+            <li class="me-2">
+                <button id="tab-alumno-btn"
+                    class="inline-block p-4 border-b-2 border-transparent text-body hover:text-heading hover:border-default rounded-t-lg"
+                    onclick="mostrarTab('alumno')" type="button">
+                    Buscar por Alumno
+                </button>
+            </li>
+        </ul>
+    </div>
+
+    <!-- Panel: por Curso -->
+    <div id="panel-curso">
+        <div class="flex flex-col sm:flex-row gap-4 items-end mb-6">
+            <div class="flex-1">
+                <label for="select-curso"
+                    class="block mb-2 text-sm font-medium text-heading">Selecciona
+                    un curso</label>
+                <select id="select-curso"
+                    class="bg-neutral-primary-soft border border-default text-heading text-sm rounded-base block w-full p-2.5 focus:ring-brand focus:border-brand">
+                    <option value>-- Elige un curso --</option>
+                    {% for curso in cursos %}
+                    <option value="{{ curso.id }}">{{ curso.nombre }}</option>
+                    {% endfor %}
+                </select>
+            </div>
+            <button onclick="consultarPorCurso()"
+                class="flex items-center gap-2 bg-brand text-white px-5 py-2.5 rounded-base hover:bg-brand-strong focus:ring-4 focus:ring-brand-medium font-medium text-sm focus:outline-none">
+                <svg class="w-4 h-4" xmlns="http://www.w3.org/2000/svg"
+                    fill="none" viewBox="0 0 24 24">
+                    <path stroke="currentColor" stroke-linecap="round"
+                        stroke-linejoin="round" stroke-width="2"
+                        d="m19 19-4-4m0-7A7 7 0 1 1 1 8a7 7 0 0 1 14 0Z" />
+                </svg>
+                Consultar
+            </button>
+        </div>
+
+        <div id="resultado-curso" class="hidden">
+            <div class="flex items-center justify-between mb-3">
+                <h3 class="text-lg font-semibold text-heading"
+                    id="titulo-resultado-curso"></h3>
+                <span id="badge-curso"
+                    class="bg-brand-soft text-brand text-xs font-semibold px-2.5 py-0.5 rounded-full"></span>
+            </div>
+            <div id="tabla-curso-wrapper"
+                class="relative overflow-x-auto rounded-base border border-default">
+                <table class="w-full text-sm text-left text-body">
+                    <thead
+                        class="text-xs text-heading uppercase bg-neutral-primary-soft border-b border-default">
+                        <tr>
+                            <th class="px-6 py-3">Matrícula</th>
+                            <th class="px-6 py-3">Nombre</th>
+                            <th class="px-6 py-3">Apellidos</th>
+                            <th class="px-6 py-3">Email</th>
+                        </tr>
+                    </thead>
+                    <tbody id="tabla-alumnos-curso"></tbody>
+                </table>
+            </div>
+            <div id="sin-alumnos"
+                class="hidden text-center py-8 text-body text-sm">
+                No hay alumnos inscritos en este curso.
+            </div>
+        </div>
+    </div>
+
+    <!-- Panel: por Alumno -->
+    <div id="panel-alumno" class="hidden">
+        <div class="flex flex-col sm:flex-row gap-4 items-end mb-6">
+            <div class="flex-1">
+                <label for="select-alumno"
+                    class="block mb-2 text-sm font-medium text-heading">Selecciona
+                    un alumno</label>
+                <select id="select-alumno"
+                    class="bg-neutral-primary-soft border border-default text-heading text-sm rounded-base block w-full p-2.5 focus:ring-brand focus:border-brand">
+                    <option value>-- Elige un alumno --</option>
+                    {% for alumno in alumnos %}
+                    <option value="{{ alumno.id }}">{{ alumno.apellidos }}, {{
+                        alumno.nombre }}</option>
+                    {% endfor %}
+                </select>
+            </div>
+            <button onclick="consultarPorAlumno()"
+                class="flex items-center gap-2 bg-brand text-white px-5 py-2.5 rounded-base hover:bg-brand-strong focus:ring-4 focus:ring-brand-medium font-medium text-sm focus:outline-none">
+                <svg class="w-4 h-4" xmlns="http://www.w3.org/2000/svg"
+                    fill="none" viewBox="0 0 24 24">
+                    <path stroke="currentColor" stroke-linecap="round"
+                        stroke-linejoin="round" stroke-width="2"
+                        d="m19 19-4-4m0-7A7 7 0 1 1 1 8a7 7 0 0 1 14 0Z" />
+                </svg>
+                Consultar
+            </button>
+        </div>
+
+        <div id="resultado-alumno" class="hidden">
+            <div class="flex items-center justify-between mb-3">
+                <h3 class="text-lg font-semibold text-heading"
+                    id="titulo-resultado-alumno"></h3>
+                <span id="badge-alumno"
+                    class="bg-brand-soft text-brand text-xs font-semibold px-2.5 py-0.5 rounded-full"></span>
+            </div>
+            <div id="tabla-alumno-wrapper"
+                class="relative overflow-x-auto rounded-base border border-default">
+                <table class="w-full text-sm text-left text-body">
+                    <thead
+                        class="text-xs text-heading uppercase bg-neutral-primary-soft border-b border-default">
+                        <tr>
+                            <th class="px-6 py-3">#</th>
+                            <th class="px-6 py-3">Nombre del Curso</th>
+                            <th class="px-6 py-3">Descripción</th>
+                        </tr>
+                    </thead>
+                    <tbody id="tabla-cursos-alumno"></tbody>
+                </table>
+            </div>
+            <div id="sin-cursos"
+                class="hidden text-center py-8 text-body text-sm">
+                Este alumno no está inscrito en ningún curso.
+            </div>
+        </div>
+    </div>
+
+</div>
+
+<script>
+    window.URL_POR_CURSO  = "{{ url_for('consultas.por_curso') }}";
+    window.URL_POR_ALUMNO = "{{ url_for('consultas.por_alumno') }}";
+</script>
+<script
+    src="{{ url_for('consultas.static', filename='consultas.js') }}"></script>
+
+{% endblock %}

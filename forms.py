@@ -2,9 +2,8 @@ from wtforms import Form, StringField, DateField, IntegerField, EmailField,valid
 from flask_wtf import FlaskForm
  
 class UserForm(Form):
-    id = IntegerField('id',[
-        validators.number_range(min=1, max=20, message='valor no valido')
-    ])
+    id = IntegerField('id')
+
    
     nombre = StringField('nombre',[
         validators.DataRequired(message='El nombre es requerido'),
@@ -25,9 +24,9 @@ class UserForm(Form):
     ])
     
 class MaestroForm(Form):
-    matricula = IntegerField('matricula', [
-        validators.DataRequired(message='La matricula es requerida')
-    ])
+    matricula = IntegerField('matricula')
+    
+    
     nombre = StringField('nombre', [
         validators.DataRequired(message='El nombre es requerido'),
         validators.length(min=4, max=50, message='requiere minimo 4, maximo 50')

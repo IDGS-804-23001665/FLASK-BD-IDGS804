@@ -11,19 +11,22 @@
                 stroke-width="2"
                 d="M19 7l-.867 12.142A2 2 0 0116.138 21H7.862a2 2 0 01-1.995-1.858L5 7m5 4v6m4-6v6m1-10V4a1 1 0 00-1-1h-4a1 1 0 00-1 1v3M4 7h16" />
         </svg>
-        Eliminar Maestro
+        Eliminar Alumno
     </h2>
 
     <form method="POST"
-        action="{{ url_for('maestros.eliminar_maestro', id=form.matricula.data) }}">
+        action="{{ url_for('alumnos.eliminar_alumno', id=form.id.data) }}">
         <input type="hidden" name="csrf_token" value="{{ csrf_token() }}" />
+        {{ macros.camposNuevos(form.id, class="input-field", readonly=True) }}
         <div class="grid grid-cols-2 gap-4">
             {{ macros.camposNuevos(form.nombre, class="input-field",
             disabled=True) }}
             {{ macros.camposNuevos(form.apellidos, class="input-field",
             disabled=True) }}
         </div>
-        {{ macros.camposNuevos(form.especialidad, class="input-field",
+        {{ macros.camposNuevos(form.email, class="input-field", disabled=True)
+        }}
+        {{ macros.camposNuevos(form.telefono, class="input-field",
         disabled=True) }}
 
         <div class="flex gap-3 mt-6">
@@ -31,7 +34,7 @@
                 class="bg-red-500 hover:bg-red-600 text-white text-sm font-medium px-5 py-2 rounded-lg transition-colors">
                 Confirmar Eliminación
             </button>
-            <a href="{{ url_for('maestros.index') }}"
+            <a href="{{ url_for('alumnos.index') }}"
                 class="bg-slate-100 hover:bg-slate-200 text-slate-700 text-sm font-medium px-5 py-2 rounded-lg transition-colors">
                 Cancelar
             </a>
